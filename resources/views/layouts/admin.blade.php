@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html @if (app()->getLocale() == 'ar') dir="rtl" @endif>
 
 <head>
     <meta charset="UTF-8">
@@ -39,7 +39,7 @@
                 <i class="fas fa-fw fa-bars"></i>
             </button>
 
-            <ul class="c-header-nav ml-auto">
+            <ul class="c-header-nav @if (app()->getLocale() == 'ar') mr-auto @else ml-auto @endif">
                 @if(count(config('panel.available_languages', [])) > 1)
                     <li class="c-header-nav-item dropdown d-md-down-none">
                         <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -153,7 +153,8 @@
   let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
 
   let languages = {
-    'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+    'en': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/English.json',
+        'ar': 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Arabic.json'
   };
 
   $.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
