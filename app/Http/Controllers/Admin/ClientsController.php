@@ -59,7 +59,11 @@ class ClientsController extends Controller
                 return $row->shop_name ? $row->shop_name : '';
             });
             $table->editColumn('commerical_record', function ($row) {
-                return $row->commerical_record ? '<a href="' . $row->commerical_record->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+                return $row->commerical_record
+                    ? '<a href="' . $row->commerical_record->getUrl('preview') . '" target="_blank">
+                         <img src="' . $row->commerical_record->getUrl('thumb') . '" alt="Image" style="max-width:50px; max-height:50px;">
+                       </a>'
+                    : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'user', 'commerical_record']);
@@ -110,7 +114,7 @@ class ClientsController extends Controller
         $client->update($request->all());
 
         if ($request->input('commerical_record', false)) {
-            if (! $client->commerical_record || $request->input('commerical_record') !== $client->commerical_record->file_name) {
+            if (!$client->commerical_record || $request->input('commerical_record') !== $client->commerical_record->file_name) {
                 if ($client->commerical_record) {
                     $client->commerical_record->delete();
                 }

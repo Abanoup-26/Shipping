@@ -15,12 +15,20 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UsersController extends Controller
 {
+    function update_statuses(Request $request)
+    {
+        $column_name = $request->column_name;
+        $user = User::find($request->id);
+        $user->$column_name = $request->approved;
+        $user->save();
+        return 1;
+    }
     public function index(Request $request)
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = User::with(['roles'])->select(sprintf('%s.*', (new User)->table));
+            $query = User::with(['roles'])->where('user_type', '!=', 'staff')->select(sprintf('%s.*', (new User)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -52,7 +60,11 @@ class UsersController extends Controller
             });
 
             $table->editColumn('approved', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->approved ? 'checked' : null) . '>';
+                return  ' <label class="c-switch c-switch-pill c-switch-success">
+                        <input onchange="update_statuses(this,\'approved\')" value="' . $row->id . '" 
+                            type="checkbox" class="c-switch-input" ' . ($row->approved ? "checked" : null) . '>
+                        <span class="c-switch-slider"></span>
+                    </label>';
             });
             $table->editColumn('phone_number', function ($row) {
                 return $row->phone_number ? $row->phone_number : '';

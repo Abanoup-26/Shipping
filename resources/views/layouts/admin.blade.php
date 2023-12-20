@@ -22,6 +22,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
     @yield('styles')
 </head>
 
@@ -119,6 +120,52 @@
             </form>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+    <script>
+      function showAlert(type, title, message) {
+          swal({
+              title: title,
+              text: message,
+              type: type,
+              showConfirmButton: 'Okay',
+              timer: 3000
+          });
+      }
+
+      function showToast(type, title) {
+          swal({
+              toast: true,
+              title: title,
+              type: type,
+              position: 'center-center',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+          })
+      }
+  </script>
+    {{-- update status   --}}
+    <script>
+      function update_statuses(el, column_name) {
+          if (el.checked) {
+              var status = 1;
+          } else {
+              var status = 0;
+          }
+          $.post('{{ route('admin.users.update_statuses') }}', {
+              _token: '{{ csrf_token() }}',
+              id: el.value,
+              approved: status,
+              column_name: column_name
+          }, function(data) {
+              if (data == 1) {
+                  showAlert('success', 'Approved', '');
+              } else {
+                  showAlert('danger', 'Something went wrong', '');
+              }
+          });
+      }
+  </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

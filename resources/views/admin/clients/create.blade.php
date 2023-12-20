@@ -9,7 +9,9 @@
     <div class="card-body">
         <form method="POST" action="{{ route("admin.clients.store") }}" enctype="multipart/form-data">
             @csrf
+            <!--- User_id -->
             <div class="form-group">
+                
                 <label class="required" for="user_id">{{ trans('cruds.client.fields.user') }}</label>
                 <select class="form-control select2 {{ $errors->has('user') ? 'is-invalid' : '' }}" name="user_id" id="user_id" required>
                     @foreach($users as $id => $entry)
@@ -23,6 +25,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.client.fields.user_helper') }}</span>
             </div>
+            <!--- company_name -->
             <div class="form-group">
                 <label class="required" for="company_name">{{ trans('cruds.client.fields.company_name') }}</label>
                 <input class="form-control {{ $errors->has('company_name') ? 'is-invalid' : '' }}" type="text" name="company_name" id="company_name" value="{{ old('company_name', '') }}" required>
@@ -33,6 +36,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.client.fields.company_name_helper') }}</span>
             </div>
+             <!--- shop_name -->
             <div class="form-group">
                 <label class="required" for="shop_name">{{ trans('cruds.client.fields.shop_name') }}</label>
                 <input class="form-control {{ $errors->has('shop_name') ? 'is-invalid' : '' }}" type="text" name="shop_name" id="shop_name" value="{{ old('shop_name', '') }}" required>
@@ -43,6 +47,7 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.client.fields.shop_name_helper') }}</span>
             </div>
+             <!--- commerical_record -->
             <div class="form-group">
                 <label class="required" for="commerical_record">{{ trans('cruds.client.fields.commerical_record') }}</label>
                 <div class="needsclick dropzone {{ $errors->has('commerical_record') ? 'is-invalid' : '' }}" id="commerical_record-dropzone">
@@ -92,13 +97,13 @@
       }
     },
     init: function () {
-@if(isset($client) && $client->commerical_record)
+    @if(isset($client) && $client->commerical_record)
       var file = {!! json_encode($client->commerical_record) !!}
           this.options.addedfile.call(this, file)
       file.previewElement.classList.add('dz-complete')
       $('form').append('<input type="hidden" name="commerical_record" value="' + file.file_name + '">')
       this.options.maxFiles = this.options.maxFiles - 1
-@endif
+    @endif
     },
      error: function (file, response) {
          if ($.type(response) === 'string') {
@@ -116,6 +121,6 @@
 
          return _results
      }
-}
+    }
 </script>
 @endsection

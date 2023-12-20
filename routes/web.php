@@ -10,6 +10,9 @@ Route::get('/home', function () {
 });
 
 Auth::routes();
+// Commercial_record image in Registeration
+Route::post('register/media', 'Auth\RegisterController@storeMedia')->name('register.storeMedia');
+Route::post('register/ckmedia', 'Auth\RegisterController@storeCKEditorImages')->name('register.storeCKEditorImages');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -24,6 +27,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
+    Route::post('user', 'UserController@index')->name('user');
+    Route::post('users/update_statuses', 'UsersController@update_statuses')->name('users.update_statuses');
 
     // Clients
     Route::delete('clients/destroy', 'ClientsController@massDestroy')->name('clients.massDestroy');
