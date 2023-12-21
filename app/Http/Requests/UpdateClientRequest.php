@@ -6,6 +6,8 @@ use App\Models\Client;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rule;
 
 class UpdateClientRequest extends FormRequest
 {
@@ -16,11 +18,11 @@ class UpdateClientRequest extends FormRequest
 
     public function rules()
     {
+        $clientId = $this->route('client');
+
         return [
-            'user_id' => [
-                'required',
-                'integer',
-            ],
+            'name' => 'required',
+            'password' => 'required',
             'company_name' => [
                 'string',
                 'required',

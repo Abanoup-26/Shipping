@@ -152,7 +152,7 @@
           } else {
               var status = 0;
           }
-          $.post('{{ route('admin.users.update_statuses') }}', {
+          $.post('{{ route('admin.clients.update_statuses') }}', {
               _token: '{{ csrf_token() }}',
               id: el.value,
               approved: status,

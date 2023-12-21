@@ -17,21 +17,12 @@ class StoreClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => [
-                'required',
-                'integer',
-            ],
-            'company_name' => [
-                'string',
-                'required',
-            ],
-            'shop_name' => [
-                'string',
-                'required',
-            ],
-            'commerical_record' => [
-                'required',
-            ],
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+            'company_name' => 'required|string',
+            'shop_name' => 'required|string',
+            'commerical_record' => 'required',
         ];
     }
 }

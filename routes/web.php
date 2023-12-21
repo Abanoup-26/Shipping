@@ -2,11 +2,13 @@
 
 Route::redirect('/', '/login');
 Route::get('/home', function () {
+    $userType = Auth::user()->user_type;
     if (session('status')) {
-        return redirect()->route('admin.home')->with('status', session('status'));
+        $homeRoute = $userType === 'client' ? 'client.home' : 'admin.home';
+        return redirect()->route($homeRoute)->with('status', session('status'));
     }
-
-    return redirect()->route('admin.home');
+    $homeRoute = $userType === 'client' ? 'client.home' : 'admin.home';
+    return redirect()->route($homeRoute);
 });
 
 Auth::routes();
@@ -14,7 +16,7 @@ Auth::routes();
 Route::post('register/media', 'Auth\RegisterController@storeMedia')->name('register.storeMedia');
 Route::post('register/ckmedia', 'Auth\RegisterController@storeCKEditorImages')->name('register.storeCKEditorImages');
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth', 'staff']], function () {
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
@@ -28,12 +30,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
     Route::resource('users', 'UsersController');
     Route::post('user', 'UserController@index')->name('user');
-    Route::post('users/update_statuses', 'UsersController@update_statuses')->name('users.update_statuses');
+
 
     // Clients
     Route::delete('clients/destroy', 'ClientsController@massDestroy')->name('clients.massDestroy');
     Route::post('clients/media', 'ClientsController@storeMedia')->name('clients.storeMedia');
     Route::post('clients/ckmedia', 'ClientsController@storeCKEditorImages')->name('clients.storeCKEditorImages');
+    Route::post('clients/update_statuses', 'ClientsController@update_statuses')->name('clients.update_statuses');
     Route::resource('clients', 'ClientsController');
 
     // Audit Logs

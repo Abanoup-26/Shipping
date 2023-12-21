@@ -66,4 +66,9 @@ class Client extends Model implements HasMedia
     {
         return $this->getMedia('commerical_record')->last();
     }
+
+    public function calculateTotalClientFinancial()
+    {
+        return $this->clientClientFinancials()->sum('amount');
+    }
 }

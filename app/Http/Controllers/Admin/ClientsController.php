@@ -19,6 +19,14 @@ class ClientsController extends Controller
 {
     use MediaUploadingTrait;
 
+    function update_statuses(Request $request)
+    {
+        $column_name = $request->column_name;
+        $user = User::find($request->id);
+        $user->$column_name = $request->approved;
+        $user->save();
+        return 1;
+    }
     public function index(Request $request)
     {
         abort_if(Gate::denies('client_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -65,8 +73,15 @@ class ClientsController extends Controller
                        </a>'
                     : '';
             });
+            $table->editColumn('approved', function ($row) {
+                return  ' <label class="c-switch c-switch-pill c-switch-success">
+                        <input onchange="update_statuses(this,\'approved\')" value="' . $row->user->id . '" 
+                            type="checkbox" class="c-switch-input" ' . ($row->user->approved ? "checked" : null) . '>
+                        <span class="c-switch-slider"></span>
+                    </label>';
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'user', 'commerical_record']);
+            $table->rawColumns(['actions', 'placeholder', 'user', 'commerical_record', 'approved']);
 
             return $table->make(true);
         }
@@ -85,7 +100,19 @@ class ClientsController extends Controller
 
     public function store(StoreClientRequest $request)
     {
-        $client = Client::create($request->all());
+        // validated date from the request
+        $userData = $request->all();
+        // add the user_type of client
+        $userData['user_type'] = 'client';
+        // create user
+        $user = User::create($userData);
+        // create client
+        $client = Client::create([
+            'user_id' => $user->id,
+            'company_name' => $request->company_name,
+            'shop_name' => $request->shop_name,
+
+        ]);
 
         if ($request->input('commerical_record', false)) {
             $client->addMedia(storage_path('tmp/uploads/' . basename($request->input('commerical_record'))))->toMediaCollection('commerical_record');
@@ -111,6 +138,10 @@ class ClientsController extends Controller
 
     public function update(UpdateClientRequest $request, Client $client)
     {
+        // update user
+        $user = User::findOrfail($client->user_id);
+        $user->update($request->all());
+        // update client
         $client->update($request->all());
 
         if ($request->input('commerical_record', false)) {

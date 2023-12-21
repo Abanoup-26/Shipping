@@ -76,7 +76,7 @@ return [
         'fields'         => [
             'id'                       => 'ID',
             'id_helper'                => ' ',
-            'user'                     => 'المستخدم',
+            'user'                     => 'اسم المستخدم',
             'user_helper'              => ' ',
             'created_at'               => 'تاريخ الإنشاء',
             'created_at_helper'        => ' ',

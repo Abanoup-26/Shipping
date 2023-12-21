@@ -1,43 +1,28 @@
-@extends('layouts.admin')
+@extends('layouts.frontend')
 @section('content')
-    @can('client_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.clients.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.client.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
     <div class="card">
         <div class="card-header">
-            {{ trans('cruds.client.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.clientFinancial.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body">
-            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Client">
+            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-ClientFinancial">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.client.fields.id') }}
+                            {{ trans('cruds.clientFinancial.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.client.fields.user') }}
+                            {{ trans('cruds.clientFinancial.fields.client') }}
                         </th>
                         <th>
-                            {{ trans('cruds.client.fields.company_name') }}
+                            {{ trans('cruds.clientFinancial.fields.amount') }}
                         </th>
                         <th>
-                            {{ trans('cruds.client.fields.shop_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.client.fields.commerical_record') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.user.fields.approved') }}
+                            {{ trans('cruds.clientFinancial.fields.receipt_file') }}
                         </th>
                         <th>
                             &nbsp;
@@ -53,11 +38,11 @@
     <script>
         $(function() {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-            @can('client_delete')
+            @can('client_financial_delete')
                 let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
                 let deleteButton = {
                     text: deleteButtonTrans,
-                    url: "{{ route('admin.clients.massDestroy') }}",
+                    url: "{{ route('admin.client-financials.massDestroy') }}",
                     className: 'btn-danger',
                     action: function(e, dt, node, config) {
                         var ids = $.map(dt.rows({
@@ -99,7 +84,7 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.clients.index') }}",
+                ajax: "{{ route('client.client-financials.index') }}",
                 columns: [{
                         data: 'placeholder',
                         name: 'placeholder'
@@ -109,26 +94,18 @@
                         name: 'id'
                     },
                     {
-                        data: 'user_name',
-                        name: 'user.name'
+                        data: 'client_company_name',
+                        name: 'client.company_name'
                     },
                     {
-                        data: 'company_name',
-                        name: 'company_name'
+                        data: 'amount',
+                        name: 'amount'
                     },
                     {
-                        data: 'shop_name',
-                        name: 'shop_name'
-                    },
-                    {
-                        data: 'commerical_record',
-                        name: 'commerical_record',
+                        data: 'receipt_file',
+                        name: 'receipt_file',
                         sortable: false,
                         searchable: false
-                    },
-                    {
-                        data: 'approved',
-                        name: 'approved'
                     },
                     {
                         data: 'actions',
@@ -141,7 +118,7 @@
                 ],
                 pageLength: 25,
             };
-            let table = $('.datatable-Client').DataTable(dtOverrideGlobals);
+            let table = $('.datatable-ClientFinancial').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e) {
                 $($.fn.dataTable.tables(true)).DataTable()
                     .columns.adjust();

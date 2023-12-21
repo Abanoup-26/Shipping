@@ -1,43 +1,51 @@
-@extends('layouts.admin')
+@extends('layouts.frontend')
 @section('content')
-    @can('client_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.clients.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.client.title_singular') }}
-                </a>
-            </div>
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('client.orders.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.order.title_singular') }}
+            </a>
         </div>
-    @endcan
+    </div>
+
     <div class="card">
         <div class="card-header">
-            {{ trans('cruds.client.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.order.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body">
-            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Client">
+            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Order">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.client.fields.id') }}
+                            {{ trans('cruds.order.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.client.fields.user') }}
+                            {{ trans('cruds.order.fields.client') }}
                         </th>
                         <th>
-                            {{ trans('cruds.client.fields.company_name') }}
+                            {{ trans('cruds.order.fields.shipment_company') }}
                         </th>
                         <th>
-                            {{ trans('cruds.client.fields.shop_name') }}
+                            {{ trans('cruds.order.fields.order_code') }}
                         </th>
                         <th>
-                            {{ trans('cruds.client.fields.commerical_record') }}
+                            {{ trans('cruds.order.fields.pieces') }}
                         </th>
                         <th>
-                            {{ trans('cruds.user.fields.approved') }}
+                            {{ trans('cruds.order.fields.destination') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.order.fields.description') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.order.fields.custom_value') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.order.fields.delivery_status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -53,11 +61,11 @@
     <script>
         $(function() {
             let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-            @can('client_delete')
+            @can('order_delete')
                 let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
                 let deleteButton = {
                     text: deleteButtonTrans,
-                    url: "{{ route('admin.clients.massDestroy') }}",
+                    url: "{{ route('admin.orders.massDestroy') }}",
                     className: 'btn-danger',
                     action: function(e, dt, node, config) {
                         var ids = $.map(dt.rows({
@@ -99,7 +107,7 @@
                 serverSide: true,
                 retrieve: true,
                 aaSorting: [],
-                ajax: "{{ route('admin.clients.index') }}",
+                ajax: "{{ route('client.orders.index') }}",
                 columns: [{
                         data: 'placeholder',
                         name: 'placeholder'
@@ -109,26 +117,36 @@
                         name: 'id'
                     },
                     {
-                        data: 'user_name',
-                        name: 'user.name'
+                        data: 'client_company_name',
+                        name: 'client.company_name'
                     },
                     {
-                        data: 'company_name',
-                        name: 'company_name'
+                        data: 'shipment_company',
+                        name: 'shipment_company'
                     },
                     {
-                        data: 'shop_name',
-                        name: 'shop_name'
+                        data: 'order_code',
+                        name: 'order_code'
                     },
                     {
-                        data: 'commerical_record',
-                        name: 'commerical_record',
-                        sortable: false,
-                        searchable: false
+                        data: 'pieces',
+                        name: 'pieces'
                     },
                     {
-                        data: 'approved',
-                        name: 'approved'
+                        data: 'destination',
+                        name: 'destination'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description'
+                    },
+                    {
+                        data: 'custom_value',
+                        name: 'custom_value'
+                    },
+                    {
+                        data: 'delivery_status',
+                        name: 'delivery_status'
                     },
                     {
                         data: 'actions',
@@ -141,7 +159,7 @@
                 ],
                 pageLength: 25,
             };
-            let table = $('.datatable-Client').DataTable(dtOverrideGlobals);
+            let table = $('.datatable-Order').DataTable(dtOverrideGlobals);
             $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e) {
                 $($.fn.dataTable.tables(true)).DataTable()
                     .columns.adjust();

@@ -1,14 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-    @can('user_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.users.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
     <div class="card">
         <div class="card-header">
             {{ trans('cruds.user.title_singular') }} {{ trans('global.list') }}
@@ -32,10 +23,11 @@
                         </th>
                         {{-- <th>
                         {{ trans('cruds.user.fields.email_verified_at') }}
-                    </th> --}}
+                        </th> 
                         <th>
                             {{ trans('cruds.user.fields.approved') }}
                         </th>
+                        --}}
                         <th>
                             {{ trans('cruds.user.fields.phone_number') }}
                         </th>
@@ -123,10 +115,10 @@
                     //     data: 'email_verified_at',
                     //     name: 'email_verified_at'
                     // },
-                    {
-                        data: 'approved',
-                        name: 'approved'
-                    },
+                    // {
+                    //     data: 'approved',
+                    //     name: 'approved'
+                    // },
                     {
                         data: 'phone_number',
                         name: 'phone_number'
