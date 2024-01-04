@@ -19,6 +19,16 @@ class ClientFinancialController extends Controller
 {
     use MediaUploadingTrait;
 
+
+    function update_statuses(Request $request)
+    {
+        $column_name = $request->column_name;
+        $clientWallet = ClientFinancial::findOrFail($request->id);
+        $clientWallet->$column_name = $request->approved;
+        $clientWallet->save();
+        return 1;
+    }
+
     public function index(Request $request)
     {
         abort_if(Gate::denies('client_financial_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -55,11 +65,21 @@ class ClientFinancialController extends Controller
             $table->editColumn('amount', function ($row) {
                 return $row->amount ? $row->amount : '';
             });
+            $table->editColumn('status', function ($row) {
+                return $row->status ?  ClientFinancial::STATUS_SELECT[$row->status] : '';
+            });
             $table->editColumn('receipt_file', function ($row) {
                 return $row->receipt_file ? '<a href="' . $row->receipt_file->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
             });
+            $table->editColumn('approved', function ($row) {
+                return  ' <label class="c-switch c-switch-pill c-switch-success">
+                        <input onchange="update_statuses(this,\'approved\')" value="' . $row->id . '" 
+                            type="checkbox" class="c-switch-input" ' . ($row->approved ? "checked" : null) . '>
+                        <span class="c-switch-slider"></span>
+                    </label>';
+            });
 
-            $table->rawColumns(['actions', 'placeholder', 'client', 'receipt_file']);
+            $table->rawColumns(['actions', 'placeholder', 'client', 'approved', 'receipt_file']);
 
             return $table->make(true);
         }
@@ -107,7 +127,7 @@ class ClientFinancialController extends Controller
         $clientFinancial->update($request->all());
 
         if ($request->input('receipt_file', false)) {
-            if (! $clientFinancial->receipt_file || $request->input('receipt_file') !== $clientFinancial->receipt_file->file_name) {
+            if (!$clientFinancial->receipt_file || $request->input('receipt_file') !== $clientFinancial->receipt_file->file_name) {
                 if ($clientFinancial->receipt_file) {
                     $clientFinancial->receipt_file->delete();
                 }

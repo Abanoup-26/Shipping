@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'site_title' => 'Shipping Services',
+    'site_title' => 'BestShep',
 
 ];

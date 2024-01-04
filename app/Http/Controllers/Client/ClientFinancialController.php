@@ -21,9 +21,11 @@ class ClientFinancialController extends Controller
         if ($request->ajax()) {
             $query = ClientFinancial::with(['client'])->whereHas('client', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })->select(sprintf('%s.*', (new ClientFinancial)->table));
+            })->where('approved', 1)->select(sprintf('%s.*', (new ClientFinancial)->table));
             $table = Datatables::of($query);
-
+            $table->editColumn('approved', function ($row) {
+                return $row->approved ? trans('global.transfer done') : trans('global.pending');
+            });
             $table->addColumn('placeholder', '&nbsp;');
             $table->addColumn('actions', '&nbsp;');
 
@@ -58,8 +60,12 @@ class ClientFinancialController extends Controller
 
             return $table->make(true);
         }
+        // client 
+        $client = Client::where('user_id', auth()->user()->id)->with('clientClientFinancials')->first();
 
-        return view('frontend.client-financials.index');
+        // get total amount of financial
+        $totalAmount = $client->calculateTotalClientFinancial();
+        return view('frontend.client-financials.index', compact('totalAmount'));
     }
 
     public function show(ClientFinancial $clientFinancial)
@@ -67,5 +73,11 @@ class ClientFinancialController extends Controller
         $clientFinancial->load('client');
 
         return view('frontend.client-financials.show', compact('clientFinancial'));
+    }
+
+    public function create(ClientFinancial $clientFinancial)
+    {
+        $client_id = $clientFinancial->client_id;
+        return view('frontend.client-financials.create', compact('client_id', 'clientFinancial'));
     }
 }

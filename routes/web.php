@@ -50,6 +50,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Client Financial
     Route::delete('client-financials/destroy', 'ClientFinancialController@massDestroy')->name('client-financials.massDestroy');
     Route::post('client-financials/media', 'ClientFinancialController@storeMedia')->name('client-financials.storeMedia');
+    Route::post('client-financials/update_statuses', 'ClientFinancialController@update_statuses')->name('client-financials.update_statuses');
     Route::post('client-financials/ckmedia', 'ClientFinancialController@storeCKEditorImages')->name('client-financials.storeCKEditorImages');
     Route::resource('client-financials', 'ClientFinancialController');
 

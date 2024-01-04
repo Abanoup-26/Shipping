@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Shipping Service'),
+    'name' => env('APP_NAME', 'BestShep'),
     'barcode_type' => 'C93',
     /*
     |--------------------------------------------------------------------------

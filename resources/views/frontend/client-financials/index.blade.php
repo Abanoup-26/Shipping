@@ -1,10 +1,23 @@
 @extends('layouts.frontend')
 @section('content')
     <div class="card">
+        <div class="row justify-content-center">
+            <h1> رصيد المحفظه{{ $totalAmount }}
+            </h1>
+        </div>
+    </div>
+    <div class="card">
         <div class="card-header">
             {{ trans('cruds.clientFinancial.title_singular') }} {{ trans('global.list') }}
         </div>
 
+        <div style="margin: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route('client.client-financials.create') }}">
+                    {{ trans('global.add') }} {{ trans('cruds.clientFinancial.fields.balance') }}
+                </a>
+            </div>
+        </div>
         <div class="card-body">
             <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-ClientFinancial">
                 <thead>
@@ -23,6 +36,9 @@
                         </th>
                         <th>
                             {{ trans('cruds.clientFinancial.fields.receipt_file') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.clientFinancial.fields.approved') }}
                         </th>
                         <th>
                             &nbsp;
@@ -101,11 +117,16 @@
                         data: 'amount',
                         name: 'amount'
                     },
+
                     {
                         data: 'receipt_file',
                         name: 'receipt_file',
                         sortable: false,
                         searchable: false
+                    },
+                    {
+                        data: 'approved',
+                        name: 'approved'
                     },
                     {
                         data: 'actions',

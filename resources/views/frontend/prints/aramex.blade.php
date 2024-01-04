@@ -51,7 +51,7 @@
                 </p>
             </div>
             <div class="col-6 barcode p-5">{!! '<img src="data:image/png;base64,' .
-                DNS1D::getBarcodePNG($order->order_code, config('app.barcode_type')) .
+                DNS1D::getBarcodePNG($order->order_code, config('app.barcode_type'), 3, 70) .
                 '" alt="barcode"   />' !!}
             </div>
         </div>
@@ -107,7 +107,7 @@
             <div class="col-lg-4 container-barcode-rotated">
                 <div class="barcode-container rotated-barcode">
                     {!! '<img style="height: 100%; width: 100%;" src="data:image/png;base64,' .
-                        DNS1D::getBarcodePNG($order->order_code, config('app.barcode_type')) .
+                        DNS1D::getBarcodePNG($order->order_code, config('app.barcode_type'), 3, 70) .
                         '" alt="barcode" />' !!}
                 </div>
 

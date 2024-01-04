@@ -322,5 +322,6 @@ return [
     'leave'                          => 'Leave',
     'calendar'                       => 'Calendar',
     'messenger'                      => 'Messenger',
-
+    'transfer done'                  => 'Transfer Done',
+    'pending'                        => 'Pending',
 ];

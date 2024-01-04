@@ -89,8 +89,7 @@
                 <div class="row justify-content-center">
                     <!--- commerical_record -->
                     <div class="form-group text-center col-6">
-                        <label class="required"
-                            for="commerical_record">{{ trans('cruds.client.fields.commerical_record') }}</label>
+                        <label for="commerical_record">{{ trans('cruds.client.fields.commerical_record') }}</label>
                         <div class="needsclick dropzone {{ $errors->has('commerical_record') ? 'is-invalid' : '' }}"
                             id="commerical_record-dropzone">
                         </div>

@@ -22,7 +22,6 @@ class StoreClientRequest extends FormRequest
             'password' => 'required',
             'company_name' => 'required|string',
             'shop_name' => 'required|string',
-            'commerical_record' => 'required',
         ];
     }
 }

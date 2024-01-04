@@ -12,6 +12,7 @@ class CreateClientsTable extends Migration
             $table->bigIncrements('id');
             $table->string('company_name');
             $table->string('shop_name');
+            $table->string('client_number')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -34,6 +34,12 @@
                             {{ trans('cruds.clientFinancial.fields.receipt_file') }}
                         </th>
                         <th>
+                            {{ trans('cruds.clientFinancial.fields.status') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.clientFinancial.fields.approved') }}
+                        </th>
+                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -117,6 +123,14 @@
                         searchable: false
                     },
                     {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'approved',
+                        name: 'approved'
+                    },
+                    {
                         data: 'actions',
                         name: '{{ trans('global.actions') }}'
                     }
@@ -134,5 +148,26 @@
             });
 
         });
+    </script>
+    <script>
+        function update_statuses(el, column_name) {
+            if (el.checked) {
+                var status = 1;
+            } else {
+                var status = 0;
+            }
+            $.post('{{ route('admin.client-financials.update_statuses') }}', {
+                _token: '{{ csrf_token() }}',
+                id: el.value,
+                approved: status,
+                column_name: column_name
+            }, function(data) {
+                if (data == 1) {
+                    showAlert('success', 'Approved', '');
+                } else {
+                    showAlert('danger', 'Something went wrong', '');
+                }
+            });
+        }
     </script>
 @endsection

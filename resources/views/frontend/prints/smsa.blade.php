@@ -52,9 +52,9 @@
 
         <div class="row border border-black ">
             <div class="text-center p-2">
-                <div class="fs-4">Trk#13235656 </div>
+                <div class="fs-4">Trk{{ $order->client->client_number }} </div>
                 {!! '<img src="data:image/png;base64,' .
-                    DNS1D::getBarcodePNG($order->order_code, config('app.barcode_type')) .
+                    DNS1D::getBarcodePNG($order->order_code, config('app.barcode_type'), 3, 70) .
                     '" alt="barcode"   />' !!}
             </div>
         </div>

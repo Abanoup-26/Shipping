@@ -91,6 +91,8 @@ return [
             'shop_name_helper'         => ' ',
             'commerical_record'        => 'Commerical Record',
             'commerical_record_helper' => ' ',
+            'client_number'            => 'Refrence Number ',
+            'client_number_helper'     => ''
         ],
     ],
     'auditLog' => [
@@ -136,8 +138,8 @@ return [
         ],
     ],
     'clientFinancial' => [
-        'title'          => 'Client Financial',
-        'title_singular' => 'Client Financial',
+        'title'          => 'Wallet Transactions',
+        'title_singular' => 'Wallet Transaction',
         'fields'         => [
             'id'                  => 'ID',
             'id_helper'           => ' ',
@@ -149,12 +151,19 @@ return [
             'description_helper'  => ' ',
             'receipt_file'        => 'Receipt File',
             'receipt_file_helper' => ' ',
+            'total_amount'        => 'Total Amount',
+            'total_amount_helper' => '',
+            'approved'            => 'Approved',
+            'approved_helper'     => '',
+            'status'              => 'Status',
+            'status_helper'       => '',
             'created_at'          => 'Created at',
             'created_at_helper'   => ' ',
             'updated_at'          => 'Updated at',
             'updated_at_helper'   => ' ',
             'deleted_at'          => 'Deleted at',
             'deleted_at_helper'   => ' ',
+
         ],
     ],
     'order' => [

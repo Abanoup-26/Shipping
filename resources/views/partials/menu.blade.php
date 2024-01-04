@@ -1,8 +1,9 @@
 <div id="sidebar" class="c-sidebar c-sidebar-fixed c-sidebar-lg-show">
 
-    <div class="c-sidebar-brand d-md-down-none">
-        <a class="c-sidebar-brand-full h4" href="#">
+    <div class="c-sidebar-brand d-md-down-none ">
+        <a class="c-sidebar-brand-full h3 text-center" href="#">
             {{ trans('panel.site_title') }}
+            <img src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid">
         </a>
     </div>
 

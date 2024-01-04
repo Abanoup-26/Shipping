@@ -11,7 +11,9 @@ class CreateClientFinancialsTable extends Migration
         Schema::create('client_financials', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->decimal('amount', 15, 2)->nullable();
+            $table->boolean('approved')->default(0)->nullable();
             $table->longText('description')->nullable();
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
         });

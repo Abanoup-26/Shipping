@@ -89,7 +89,7 @@
         </header>
 
         <div class="c-body">
-            <main class="c-main">
+            <main class="c-main" style="background: url('{{ asset('images/Dashboard.png') }}') no-repeat center center fixed; background-size: cover; background-repeat: no-repeat; ">
 
 
                 <div class="container-fluid">

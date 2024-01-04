@@ -31,11 +31,21 @@ class Client extends Model implements HasMedia
         'user_id',
         'company_name',
         'shop_name',
+        'client_number',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Creating event to generate and set the reference number
+        static::creating(function ($model) {
+            $model->client_number = '#' . str_pad(static::max('id') + 1, 4, '0', STR_PAD_LEFT);
+        });
+    }
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
@@ -49,7 +59,7 @@ class Client extends Model implements HasMedia
 
     public function clientClientFinancials()
     {
-        return $this->hasMany(ClientFinancial::class, 'client_id', 'id');
+        return $this->hasMany(ClientFinancial::class, 'client_id');
     }
 
     public function clientOrders()
@@ -69,6 +79,6 @@ class Client extends Model implements HasMedia
 
     public function calculateTotalClientFinancial()
     {
-        return $this->clientClientFinancials()->sum('amount');
+        return $this->clientClientFinancials()->where('approved', 1)->sum('amount');
     }
 }

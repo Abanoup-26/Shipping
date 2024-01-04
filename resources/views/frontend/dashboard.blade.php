@@ -1,8 +1,16 @@
 @extends('layouts.frontend')
 @section('content')
-    <h1>
-        CLient name : {{ $client->user->name }} ClientID:{{ $client->id }} - ClientUID : {{ $client->user_id }}
-    </h1>
-    <h2>Client Financials</h2>
-    <h5>Client total Financials {{ $totalAmount }}</h5>
+    <div class="row">
+        <div class="col-8">
+            <h4>{{ trans('cruds.client.fields.user') }} : {{ $client->user->name }}</h4>
+        </div>
+
+        <div class="col-4 text-end">
+            <h4>{{ trans('cruds.client.fields.id') }}:{{ $client->id }}</h4>
+        </div>
+    </div>
+    <br>
+    <h2>{{ trans('cruds.clientFinancial.title_singular') }}</h2>
+    <br>
+    <h5>{{ trans('cruds.clientFinancial.fields.total_amount') }} : {{ $totalAmount }}</h5>
 @endsection

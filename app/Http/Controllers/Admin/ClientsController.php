@@ -66,6 +66,9 @@ class ClientsController extends Controller
             $table->editColumn('shop_name', function ($row) {
                 return $row->shop_name ? $row->shop_name : '';
             });
+            $table->editColumn('client_number', function ($row) {
+                return $row->client_number ? $row->client_number : '';
+            });
             $table->editColumn('commerical_record', function ($row) {
                 return $row->commerical_record
                     ? '<a href="' . $row->commerical_record->getUrl('preview') . '" target="_blank">

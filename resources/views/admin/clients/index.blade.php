@@ -34,6 +34,9 @@
                             {{ trans('cruds.client.fields.shop_name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.client.fields.client_number') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.client.fields.commerical_record') }}
                         </th>
                         <th>
@@ -119,6 +122,10 @@
                     {
                         data: 'shop_name',
                         name: 'shop_name'
+                    },
+                    {
+                        data: 'client_number',
+                        name: 'client_number'
                     },
                     {
                         data: 'commerical_record',

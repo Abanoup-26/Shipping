@@ -26,11 +26,16 @@ class ClientFinancial extends Model implements HasMedia
         'updated_at',
         'deleted_at',
     ];
-
+    public const STATUS_SELECT = [
+        'paid'   => 'تم الدفع',
+        'unpaid' => 'لم يتم الدفع',
+    ];
     protected $fillable = [
         'client_id',
         'amount',
+        'approved',
         'description',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',

@@ -31,9 +31,6 @@ class UpdateClientRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'commerical_record' => [
-                'required',
-            ],
         ];
     }
 }
