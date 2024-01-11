@@ -21,29 +21,50 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css" rel="stylesheet" />
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet" />
+    <style>
+       .dataTables_wrapper .dataTables_info {
+            color: yellow !important; /* Your desired text color */
+        }
+       .dataTables_wrapper .dataTables_length {
+            color: yellow !important; /* Your desired text color */
+        }
+       .dataTables_wrapper .dataTables_filter{
+            color: yellow !important; /* Your desired text color */
+        }
+       .dataTables_wrapper thead th{
+        font-size: 20px !important ;
+        }
+        .dataTables_wrapper tbody td {
+           font-size: 15px !important ;
+           font-weight: bold !important;
+           padding: 5px !important ;
+            
+        }
+    </style>
     @yield('styles')
-</head>
 
-<body class="c-app">
+
+<body class="c-app bg-dark bg-gradient">
     @include('partials.menu')
     <div class="c-wrapper">
-        <header class="c-header c-header-fixed px-3">
-            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
+        <header class="c-header c-header-fixed px-3 bg-dark ">
+            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto " type="button" data-target="#sidebar" data-class="c-sidebar-show" style="color: yellow;">
                 <i class="fas fa-fw fa-bars"></i>
             </button>
 
             <a class="c-header-brand d-lg-none" href="#">{{ trans('panel.site_title') }}</a>
 
-            <button class="c-header-toggler mfs-3 d-md-down-none" type="button" responsive="true">
+            <button class="c-header-toggler mfs-3 d-md-down-none" type="button" responsive="true" style="color: yellow;">
                 <i class="fas fa-fw fa-bars"></i>
             </button>
 
-            <ul class="c-header-nav @if (app()->getLocale() == 'ar') mr-auto @else ml-auto @endif">
+            <ul class="c-header-nav @if (app()->getLocale() == 'ar') mr-auto @else ml-auto @endif" >
                 @if(count(config('panel.available_languages', [])) > 1)
                     <li class="c-header-nav-item dropdown d-md-down-none">
-                        <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: yellow;">
                             {{ strtoupper(app()->getLocale()) }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -56,7 +77,7 @@
 
                 <ul class="c-header-nav ml-auto">
                     <li class="c-header-nav-item dropdown notifications-menu">
-                        <a href="#" class="c-header-nav-link" data-toggle="dropdown">
+                        <a href="#" class="c-header-nav-link" data-toggle="dropdown" style="color: yellow;">
                             <i class="far fa-bell"></i>
                             @php($alertsCount = \Auth::user()->userUserAlerts()->where('read', false)->count())
                                 @if($alertsCount > 0)
@@ -65,7 +86,7 @@
                                     </span>
                                 @endif
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" >
                             @if(count($alerts = \Auth::user()->userUserAlerts()->withPivot('read')->limit(10)->orderBy('created_at', 'ASC')->get()->reverse()) > 0)
                                 @foreach($alerts as $alert)
                                     <div class="dropdown-item">
@@ -89,7 +110,7 @@
         </header>
 
         <div class="c-body">
-            <main class="c-main" style="background: url('{{ asset('images/Dashboard.png') }}') no-repeat center center fixed; background-size: cover; background-repeat: no-repeat; ">
+            <main class="c-main" >
 
 
                 <div class="container-fluid">
@@ -187,6 +208,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script>
         $(function() {

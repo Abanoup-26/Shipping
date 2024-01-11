@@ -10,12 +10,12 @@
         </div>
     @endcan
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
             {{ trans('cruds.clientFinancial.title_singular') }} {{ trans('global.list') }}
         </div>
 
-        <div class="card-body">
-            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-ClientFinancial">
+        <div class="card-body bg-dark bg-gradient">
+            <table class=" table table-warning table-bordered table-striped table-hover ajaxTable datatable datatable-ClientFinancial">
                 <thead>
                     <tr>
                         <th width="10">

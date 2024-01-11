@@ -47,7 +47,7 @@
 @endsection
 @section('content')
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
             {{ trans('global.relatedData') }}
         </div>
         <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
@@ -78,7 +78,7 @@
             {{ trans('global.show') }} {{ trans('cruds.client.title') }}
         </div>
 
-        <div class="card-body">
+        <div class="card-body bg-dark bg-gradient">
             <div class="form-group">
                 <section id="User_Data" class="padding-large" style="background-color: rgb(249 103 70 / 20%);">
 

@@ -9,11 +9,11 @@
 @endcan
 
 <div class="card">
-    <div class="card-header">
+    <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
         {{ trans('cruds.clientFinancial.title_singular') }} {{ trans('global.list') }}
     </div>
 
-    <div class="card-body">
+    <div class="card-body bg-dark bg-gradient">
         <div class="table-responsive">
             <table class=" table table-bordered table-striped table-hover datatable datatable-clientClientFinancials">
                 <thead>

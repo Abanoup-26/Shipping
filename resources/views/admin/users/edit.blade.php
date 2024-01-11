@@ -2,11 +2,11 @@
 @section('content')
 
 <div class="card">
-    <div class="card-header">
+    <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
         {{ trans('global.edit') }} {{ trans('cruds.user.title_singular') }}
     </div>
 
-    <div class="card-body">
+    <div class="card-body bg-dark bg-gradient">
         <form method="POST" action="{{ route("admin.users.update", [$user->id]) }}" enctype="multipart/form-data">
             @method('PUT')
             @csrf

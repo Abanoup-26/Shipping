@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 @section('content')
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
             {{ trans('global.edit') }} {{ trans('cruds.client.title_singular') }}
         </div>
 
-        <div class="card-body">
+        <div class="card-body bg-dark bg-gradient">
             <form method="POST" action="{{ route('admin.clients.update', [$client->id]) }}" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
