@@ -50,7 +50,7 @@
 
                         </div>
                         <div class="form-group col-4 ">
-                            <label class="col-3 col-form-label text-warning text-bold fs-4 "
+                            <label class="col-3 form-label text-warning text-bold fs-4 "
                                 for="weight">{{ trans('cruds.order.fields.weight') }}</label>
 
                             <input class="form-control bg-dark text-white {{ $errors->has('weight') ? 'is-invalid' : '' }}"
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
-                        <label class="col-3 col-form-label text-warning text-bold fs-4"
+                        <label class="col-3 form-label text-warning text-bold fs-4"
                             for="chargeable">{{ trans('cruds.order.fields.chargeable') }}</label>
                         <div class="col-6">
                             <input
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
-                        <label class="col-3 col-form-label text-warning text-bold fs-4"
+                        <label class="col-3 form-label text-warning text-bold fs-4"
                             for="pieces">{{ trans('cruds.order.fields.pieces') }}</label>
                         <div class="col-6">
                             <input class="form-control bg-dark text-white {{ $errors->has('pieces') ? 'is-invalid' : '' }}"
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
-                        <label class="col-3 col-form-label text-warning text-bold fs-4"
+                        <label class="col-3 form-label text-warning text-bold fs-4"
                             for="pickup_date">{{ trans('cruds.order.fields.pickup_date') }}</label>
                         <div class="col-6">
                             <input
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
-                        <label class="col-3 col-form-label text-warning text-bold fs-4"
+                        <label class="col-3 form-label text-warning text-bold fs-4"
                             for="cash_on_delivery">{{ trans('cruds.order.fields.cash_on_delivery') }}</label>
                         <div class="col-6">
                             <input
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
-                        <label class="col-3 col-form-label text-warning text-bold fs-4"
+                        <label class="col-3 form-label text-warning text-bold fs-4"
                             for="description">{{ trans('cruds.order.fields.description') }}</label>
                         <div class="col-6">
                             <textarea class="form-control bg-dark text-white {{ $errors->has('description') ? 'is-invalid' : '' }}"
@@ -169,7 +169,7 @@
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
-                        <label class="col-3 col-form-label text-warning text-bold fs-4"
+                        <label class="col-3 form-label text-warning text-bold fs-4"
                             for="custom_value">{{ trans('cruds.order.fields.custom_value') }}</label>
                         <div class="col-6">
                             <input

@@ -32,7 +32,7 @@ class OrdersController extends Controller
 
             $table->editColumn('actions', function ($row) {
                 $viewGate      = 'order_show';
-                $editGate      = '';
+                $editGate      = 'order_edit';
                 $deleteGate    = 'order_delete';
                 $crudRoutePart = 'orders';
 
