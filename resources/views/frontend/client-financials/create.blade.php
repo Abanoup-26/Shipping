@@ -1,63 +1,82 @@
 @extends('layouts.frontend')
 @section('content')
-    <div class="card">
-        <div class="row justify-content-center">
-            <div class="alert alert-primary m-5" role="alert">
+    <div class="card bg-dark">
+        <div class="row">
+            <div class=" col text-center alert alert-primary m-5 w-75 fs-4 " role="alert" style="font-weight: bold">
                 لاضافة رصيد لمحفظتك رجاء تحويل المبلغ المطلوب الى الحساب البنكي:123456789 وهو حساب الخاص ب BestShep
                 وارفاق صورة الايصال مع الطلب <br>
                 اذا كانت هناك اي تفاصيل اخري برجاء ارفاقها فى الطلب فى خانة الوصف
             </div>
         </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
+
+
+        <div class="card-header  bg-dark  text-center fs-3 text-bold text-warning">
             {{ trans('global.create') }} {{ trans('cruds.clientFinancial.title_singular') }}
         </div>
 
-        <div class="card-body">
+        <div class="card-body  bg-dark bg-gradient">
             <form method="POST" action="{{ route('client.client-financials.store') }}" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="client_id" value="{{ $client_id }}">
-                <div class="form-group">
-                    <label for="amount">{{ trans('cruds.clientFinancial.fields.amount') }}</label>
-                    <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number"
-                        name="amount" id="amount" value="{{ old('amount', '') }}" step="0.01">
-                    @if ($errors->has('amount'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('amount') }}
+                <input type="hidden" name="client_id" value="{{ $client->id }}">
+                <div class="container border border-warning p-5">
+                    <div class="form-group row justify-content-center">
+                        <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                            for="amount">{{ trans('cruds.clientFinancial.fields.amount') }}</label>
+                        <div class="col-6">
+                            <input class="form-control bg-dark text-white {{ $errors->has('amount') ? 'is-invalid' : '' }}"
+                                type="number" name="amount" id="amount" value="{{ old('amount', '') }}">
+                            @if ($errors->has('amount'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('amount') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.clientFinancial.fields.amount_helper') }}</span>
                         </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.clientFinancial.fields.amount_helper') }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="description">{{ trans('cruds.clientFinancial.fields.description') }}</label>
-                    <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description"
-                        id="description">{{ old('description') }}</textarea>
-                    @if ($errors->has('description'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('description') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.clientFinancial.fields.description_helper') }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="receipt_file">{{ trans('cruds.clientFinancial.fields.receipt_file') }}</label>
-                    <div class="needsclick dropzone {{ $errors->has('receipt_file') ? 'is-invalid' : '' }}"
-                        id="receipt_file-dropzone">
                     </div>
-                    @if ($errors->has('receipt_file'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('receipt_file') }}
+                    <div class="form-group row justify-content-center">
+                        <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                            for="description">{{ trans('cruds.clientFinancial.fields.description') }}</label>
+                        <div class="col-6">
+                            <textarea class="form-control bg-dark text-white {{ $errors->has('description') ? 'is-invalid' : '' }}"
+                                name="description" id="description">{{ old('description') }}</textarea>
+                            @if ($errors->has('description'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('description') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.clientFinancial.fields.description_helper') }}</span>
                         </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.clientFinancial.fields.receipt_file_helper') }}</span>
+                    </div>
+                    <div class="form-group row justify-content-center">
+                        <label class="col-3 m-auto col-form-label text-warning text-bold fs-4"
+                            for="receipt_file">{{ trans('cruds.clientFinancial.fields.receipt_file') }}</label>
+                        <div class="col-6">
+                            <div class="bg-dark col-6 col-md-4 needsclick dropzone {{ $errors->has('receipt_file') ? 'is-invalid' : '' }}"
+                                id="receipt_file-dropzone">
+
+                                <div class="dz-message">
+                                    <i class="fa fa-cloud-upload fa-3x"></i>
+                                    <span class=" text-light"> Select File </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if ($errors->has('receipt_file'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('receipt_file') }}
+                            </div>
+                        @endif
+                        <small
+                            class="col-12 form-text text-muted">{{ trans('cruds.clientFinancial.fields.receipt_file_helper') }}</small>
+                    </div>
+
+                    <div class="form-group container text-center mt-3">
+                        <button class="btn btn-warning col-6" type="submit">
+                            {{ trans('global.save') }}
+                        </button>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <button class="btn btn-danger" type="submit">
-                        {{ trans('global.save') }}
-                    </button>
-                </div>
+
             </form>
         </div>
     </div>
@@ -66,7 +85,7 @@
 @section('scripts')
     <script>
         Dropzone.options.receiptFileDropzone = {
-            url: '{{ route('admin.client-financials.storeMedia') }}',
+            url: '{{ route('client.client-financials.storeMedia') }}',
             maxFilesize: 2, // MB
             maxFiles: 1,
             addRemoveLinks: true,

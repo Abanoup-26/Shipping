@@ -137,8 +137,8 @@ return [
         ],
     ],
     'clientFinancial' => [
-        'title'          => 'محفظة العميل',
-        'title_singular' => 'محفظة للعميل',
+        'title'          => 'المحافظ ',
+        'title_singular' => 'محفظتي ',
         'fields'         => [
             'id'                  => 'ID',
             'id_helper'           => ' ',

@@ -155,6 +155,8 @@ return [
             'total_amount_helper' => '',
             'approved'            => 'Approved',
             'approved_helper'     => '',
+            'balance'            => 'Balance',
+            'balance_helper'     => '',
             'status'              => 'Status',
             'status_helper'       => '',
             'created_at'          => 'Created at',

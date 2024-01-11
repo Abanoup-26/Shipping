@@ -1,25 +1,26 @@
 @extends('layouts.frontend')
 @section('content')
-    <div class="card">
+    <div class="card bg-dark text-warning text-center ">
         <div class="row justify-content-center">
-            <h1> رصيد المحفظه{{ $totalAmount }}
+            <h1> رصيد المحفظه - &nbsp; &nbsp; {{ $totalAmount }}
             </h1>
         </div>
     </div>
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
             {{ trans('cruds.clientFinancial.title_singular') }} {{ trans('global.list') }}
         </div>
 
-        <div style="margin: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('client.client-financials.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.clientFinancial.fields.balance') }}
-                </a>
+        
+        <div class="card-body bg-dark bg-gradient">
+            <div style="margin: 10px;" class="row">
+                <div class="col-lg-12">
+                    <a class="btn btn-success" href="{{ route('client.client-financials.create') }}">
+                        {{ trans('global.add') }} {{ trans('cruds.clientFinancial.fields.balance') }}
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="card-body">
-            <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-ClientFinancial">
+            <table class=" table table-warning table-bordered table-striped table-hover ajaxTable datatable datatable-ClientFinancial">
                 <thead>
                     <tr>
                         <th width="10">

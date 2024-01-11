@@ -62,7 +62,6 @@ class HomeController
                 'client'       => 'company_name',
                 'amount'       => '',
                 'description'  => '',
-                'receipt_file' => '',
                 'status'       => '',
             ],
             'translation_key' => 'clientFinancial',

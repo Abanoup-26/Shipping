@@ -8,6 +8,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Models\Client;
 use App\Models\ClientFinancial;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
@@ -68,6 +69,29 @@ class ClientFinancialController extends Controller
         return view('frontend.client-financials.index', compact('totalAmount'));
     }
 
+    public function store(Request $request)
+    {
+        // return $request->all();
+        $clientFinancial = ClientFinancial::create([
+            'client_id' => $request->client_id,
+            'amount' => $request->amount,
+            'approved' => 0,
+            'description' => $request->description,
+            'status' => 'unpaid'
+        ]);
+
+        if ($request->input('receipt_file', false)) {
+            $clientFinancial->addMedia(storage_path('tmp/uploads/' . basename($request->input('receipt_file'))))->toMediaCollection('receipt_file');
+        }
+
+        if ($media = $request->input('ck-media', false)) {
+            Media::whereIn('id', $media)->update(['model_id' => $clientFinancial->id]);
+        }
+        // Use the alert helper function to display a success message
+        alert()->success('تم انشاء طلب تحويل', 'تم انشاء طلب تحويل للمحفظة بنجاح');
+        return redirect()->route('client.client-financials.index');
+    }
+
     public function show(ClientFinancial $clientFinancial)
     {
         $clientFinancial->load('client');
@@ -75,9 +99,10 @@ class ClientFinancialController extends Controller
         return view('frontend.client-financials.show', compact('clientFinancial'));
     }
 
-    public function create(ClientFinancial $clientFinancial)
+    public function create(Request $request)
     {
-        $client_id = $clientFinancial->client_id;
-        return view('frontend.client-financials.create', compact('client_id', 'clientFinancial'));
+        $client = Client::where('user_id', auth()->user()->id)->first();
+
+        return view('frontend.client-financials.create', compact('client'));
     }
 }

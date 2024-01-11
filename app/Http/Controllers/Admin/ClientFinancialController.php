@@ -25,6 +25,7 @@ class ClientFinancialController extends Controller
         $column_name = $request->column_name;
         $clientWallet = ClientFinancial::findOrFail($request->id);
         $clientWallet->$column_name = $request->approved;
+        $clientWallet->status = 'paid';
         $clientWallet->save();
         return 1;
     }
