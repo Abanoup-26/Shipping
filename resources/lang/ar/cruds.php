@@ -154,7 +154,7 @@ return [
             'balance_helper'      => '',
             'total_amount'        => 'مجموع المبالغ',
             'total_amount_helper' => '',
-            'approved'            => 'تم تحويله الى المحفظه',
+            'approved'            => 'تحويل المبلغ لمحفظة العميل',
             'approved_helper'     => '',
             'status'              => 'حالة السداد',
             'status_helper'       => '',

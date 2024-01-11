@@ -46,18 +46,19 @@
     </style>
 @endsection
 @section('content')
-    <div class="card">
+    <div class="card bg-dark">
         <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
             {{ trans('global.relatedData') }}
         </div>
         <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
             <li class="nav-item">
-                <a class="nav-link" href="#client_client_financials" role="tab" data-toggle="tab">
+                <a class="nav-link text-warning text-bold p-3" href="#client_client_financials" role="tab"
+                    data-toggle="tab">
                     {{ trans('cruds.clientFinancial.title') }}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#client_orders" role="tab" data-toggle="tab">
+                <a class="nav-link text-warning text-bold p-3" href="#client_orders" role="tab" data-toggle="tab">
                     {{ trans('cruds.order.title') }}
                 </a>
             </li>
@@ -74,7 +75,7 @@
         </div>
     </div>
     <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-dark text-warning text-bold fs-4 text-center">
             {{ trans('global.show') }} {{ trans('cruds.client.title') }}
         </div>
 

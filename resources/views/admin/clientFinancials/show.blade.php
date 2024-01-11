@@ -2,16 +2,12 @@
 @section('content')
     <div class="card">
         <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
-            {{ trans('global.show') }} {{ trans('cruds.clientFinancial.title') }}
+            {{ trans('global.show') }} {{ trans('cruds.clientFinancial.title_singular') }}
         </div>
 
         <div class="card-body bg-dark bg-gradient">
             <div class="form-group">
-                <div class="form-group">
-                    <a class="btn btn-default" href="{{ route('admin.client-financials.index') }}">
-                        {{ trans('global.back_to_list') }}
-                    </a>
-                </div>
+
                 <table class="table table-warning table-bordered table-striped">
                     <tbody>
                         <tr>

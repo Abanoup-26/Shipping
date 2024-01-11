@@ -10,77 +10,101 @@
                 enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
-                <div class="form-group">
-                    <label class="required" for="client_id">{{ trans('cruds.clientFinancial.fields.client') }}</label>
-                    <select class="form-control select2 {{ $errors->has('client') ? 'is-invalid' : '' }}" name="client_id"
-                        id="client_id" required>
-                        @foreach ($clients as $id => $entry)
-                            <option value="{{ $id }}"
-                                {{ (old('client_id') ? old('client_id') : $clientFinancial->client->id ?? '') == $id ? 'selected' : '' }}>
-                                {{ $entry }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('client'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('client') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.clientFinancial.fields.client_helper') }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="amount">{{ trans('cruds.clientFinancial.fields.amount') }}</label>
-                    <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number"
-                        name="amount" id="amount" value="{{ old('amount', $clientFinancial->amount) }}" step="0.01">
-                    @if ($errors->has('amount'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('amount') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.clientFinancial.fields.amount_helper') }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="description">{{ trans('cruds.clientFinancial.fields.description') }}</label>
-                    <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description"
-                        id="description">{{ old('description', $clientFinancial->description) }}</textarea>
-                    @if ($errors->has('description'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('description') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.clientFinancial.fields.description_helper') }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="receipt_file">{{ trans('cruds.clientFinancial.fields.receipt_file') }}</label>
-                    <div class="needsclick dropzone {{ $errors->has('receipt_file') ? 'is-invalid' : '' }}"
-                        id="receipt_file-dropzone">
+                <div class="form-group row justify-content-center">
+                    <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                        for="client_id">{{ trans('cruds.clientFinancial.fields.client') }}</label>
+                    <div class="col-6">
+                        <select
+                            class="form-control bg-dark text-white select2 {{ $errors->has('client') ? 'is-invalid' : '' }}"
+                            name="client_id" id="client_id" required>
+                            @foreach ($clients as $id => $entry)
+                                <option value="{{ $id }}"
+                                    {{ (old('client_id') ? old('client_id') : $clientFinancial->client->id ?? '') == $id ? 'selected' : '' }}>
+                                    {{ $entry }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('client'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('client') }}
+                            </div>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.clientFinancial.fields.client_helper') }}</span>
                     </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                        for="amount">{{ trans('cruds.clientFinancial.fields.amount') }}</label>
+                    <div class="col-6">
+                        <input class="form-control bg-dark text-white {{ $errors->has('amount') ? 'is-invalid' : '' }}"
+                            type="number" name="amount" id="amount" value="{{ old('amount', $clientFinancial->amount) }}">
+                        @if ($errors->has('amount'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('amount') }}
+                            </div>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.clientFinancial.fields.amount_helper') }}</span>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                        for="description">{{ trans('cruds.clientFinancial.fields.description') }}</label>
+                    <div class="col-6">
+                        <textarea class="form-control bg-dark text-white {{ $errors->has('description') ? 'is-invalid' : '' }}"
+                            name="description" id="description">{{ old('description' ,$clientFinancial->description) }}</textarea>
+                        @if ($errors->has('description'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('description') }}
+                            </div>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.clientFinancial.fields.description_helper') }}</span>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-3 m-auto col-form-label text-warning text-bold fs-4"
+                        for="receipt_file">{{ trans('cruds.clientFinancial.fields.receipt_file') }}</label>
+                    <div class="col-6">
+                        <div class="bg-dark col-6 col-md-4 needsclick dropzone {{ $errors->has('receipt_file') ? 'is-invalid' : '' }}"
+                            id="receipt_file-dropzone">
+
+                            <div class="dz-message">
+                                <i class="fa fa-cloud-upload fa-3x"></i>
+                                <span class=" text-light"> Select File </span>
+                            </div>
+                        </div>
+                    </div>
+
                     @if ($errors->has('receipt_file'))
                         <div class="invalid-feedback">
                             {{ $errors->first('receipt_file') }}
                         </div>
                     @endif
-                    <span class="help-block">{{ trans('cruds.clientFinancial.fields.receipt_file_helper') }}</span>
+                    <small
+                        class="col-12 form-text text-muted">{{ trans('cruds.clientFinancial.fields.receipt_file_helper') }}</small>
                 </div>
-                <div class="form-group">
-                    <label class="required">{{ trans('cruds.clientFinancial.fields.status') }}</label>
-                    <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status"
-                        id="status" required>
-                        <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>
-                            {{ trans('global.pleaseSelect') }}</option>
-                        @foreach (App\Models\ClientFinancial::STATUS_SELECT as $key => $label)
-                            <option value="{{ $key }}"
-                                {{ old('status', $clientFinancial->status) === (string) $key ? 'selected' : '' }}>
-                                {{ $label }}</option>
-                        @endforeach
-                    </select>
-                    @if ($errors->has('status'))
-                        <div class="invalid-feedback">
-                            {{ $errors->first('status') }}
-                        </div>
-                    @endif
-                    <span class="help-block">{{ trans('cruds.clientFinancial.fields.status_helper') }}</span>
+
+                <div class="form-group row justify-content-center">
+                    <label
+                        class="col-3 col-form-label text-warning text-bold fs-4 required">{{ trans('cruds.clientFinancial.fields.status') }}</label>
+                    <div class="col-6">
+                        <select class="form-control bg-dark text-white {{ $errors->has('status') ? 'is-invalid' : '' }}"
+                            name="status" id="status" required>
+                            <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>
+                                {{ trans('global.pleaseSelect') }}</option>
+                            @foreach (App\Models\ClientFinancial::STATUS_SELECT as $key => $label)
+                                <option value="{{ $key }}"
+                                    {{ old('status', $clientFinancial->status) === (string) $key ? 'selected' : '' }}>
+                                    {{ $label }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('status'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('status') }}
+                            </div>
+                        @endif
+                        <span class="help-block">{{ trans('cruds.clientFinancial.fields.status_helper') }}</span>
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group row justify-content-center">
                     <button class="btn btn-danger" type="submit">
                         {{ trans('global.save') }}
                     </button>

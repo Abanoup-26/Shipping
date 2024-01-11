@@ -25,7 +25,6 @@ class ClientFinancialController extends Controller
         $column_name = $request->column_name;
         $clientWallet = ClientFinancial::findOrFail($request->id);
         $clientWallet->$column_name = $request->approved;
-        $clientWallet->status = 'paid';
         $clientWallet->save();
         return 1;
     }
@@ -59,8 +58,8 @@ class ClientFinancialController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->addColumn('client_company_name', function ($row) {
-                return $row->client ? $row->client->company_name : '';
+            $table->addColumn('client_name', function ($row) {
+                return $row->client->user ? $row->client->user->name : '';
             });
 
             $table->editColumn('amount', function ($row) {
@@ -92,14 +91,22 @@ class ClientFinancialController extends Controller
     {
         abort_if(Gate::denies('client_financial_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $clients = Client::pluck('company_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $clients = Client::join('users', 'clients.user_id', '=', 'users.id')
+            ->pluck('users.name', 'clients.id')
+            ->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.clientFinancials.create', compact('clients'));
     }
 
     public function store(StoreClientFinancialRequest $request)
     {
-        $clientFinancial = ClientFinancial::create($request->all());
+        $clientFinancial = ClientFinancial::create([
+            'client_id' => $request->client_id,
+            'amount' => $request->amount,
+            'approved' => 1,
+            'description' => $request->description,
+            'status' => 'unpaid',
+        ]);
 
         if ($request->input('receipt_file', false)) {
             $clientFinancial->addMedia(storage_path('tmp/uploads/' . basename($request->input('receipt_file'))))->toMediaCollection('receipt_file');

@@ -57,6 +57,16 @@ class Order extends Model implements HasMedia
         'deleted_at',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($order) {
+            $lastOrder = self::orderBy('id', 'desc')->first();
+
+            $order->order_code = '#' . str_pad(($lastOrder->id + 1), 7, '0', STR_PAD_LEFT);
+        });
+    }
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

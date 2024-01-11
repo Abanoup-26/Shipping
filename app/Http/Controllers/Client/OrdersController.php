@@ -83,12 +83,12 @@ class OrdersController extends Controller
 
     public function store(Request $request)
     {
+        
         // client 
-        $client = Client::findOrFail(auth()->user()->id);
+        $client = Client::where('user_id',auth()->user()->id)->first();
         // validate 
         $validatedData = $request->validate([
             'shipment_company' => 'required',
-            'order_code' => 'required',
             'from' => 'required',
             'to' => 'required',
             'weight' => 'string|nullable',
@@ -97,11 +97,10 @@ class OrdersController extends Controller
             'pickup_date' => 'required|date_format:' . config('panel.date_format') . ' ' . config('panel.time_format'),
             'destination' => 'required|string',
         ]);
-
+        
         $order = Order::create([
             'client_id' => $client->id,
             'shipment_company' => $validatedData['shipment_company'],
-            'order_code' => $validatedData['order_code'],
             'from' => $validatedData['from'],
             'to' => $validatedData['to'],
             'weight' => $validatedData['weight'],

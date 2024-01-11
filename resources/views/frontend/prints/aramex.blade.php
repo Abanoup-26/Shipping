@@ -50,11 +50,19 @@
                     JED
                 </p>
             </div>
-            <div class="col-6 barcode p-5">{!! '<img src="data:image/png;base64,' .
-                DNS1D::getBarcodePNG($order->order_code, config('app.barcode_type'), 3, 70) .
-                '" alt="barcode"   />' !!}
+
+            <div class="col-6 d-flex flex-column">
+                <div class="barcode p-5">
+                    {!! '<img src="data:image/png;base64,' .
+                        DNS1D::getBarcodePNG($order->order_code, config('app.barcode_type'), 3, 70) .
+                        '" alt="barcode"   />' !!}
+                </div>
+                <div class="text-center fs-4">
+                    {{ $order->order_code }}
+                </div>
             </div>
         </div>
+
 
         <div class="row border border-black p-3">
             <div class="col-lg-4 fs-5">
@@ -101,7 +109,8 @@
                 </div>
 
                 <div class="row border border-black">
-                    <div>{{ $order->description }} <br><br><br></div>
+                    <div class="col-6"> <strong>Shpr Ref :</strong>{{ $order->client->client_number }} <br></div>
+                    
                 </div>
             </div>
             <div class="col-lg-4 container-barcode-rotated">

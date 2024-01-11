@@ -32,7 +32,7 @@ class OrdersController extends Controller
 
             $table->editColumn('actions', function ($row) {
                 $viewGate      = 'order_show';
-                $editGate      = 'order_edit';
+                $editGate      = '';
                 $deleteGate    = 'order_delete';
                 $crudRoutePart = 'orders';
 
@@ -48,8 +48,8 @@ class OrdersController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->addColumn('client_company_name', function ($row) {
-                return $row->client ? $row->client->company_name : '';
+            $table->addColumn('client_name', function ($row) {
+                return $row->client->user ? $row->client->user->name : '';
             });
 
             $table->editColumn('shipment_company', function ($row) {

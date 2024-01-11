@@ -1,111 +1,153 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="card">
-        <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
-            {{ trans('global.edit') }} {{ trans('cruds.client.title_singular') }}
-        </div>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-dark  text-center fs-3 text-bold text-warning">
+                {{ trans('global.edit') }} {{ trans('cruds.client.title_singular') }}
+            </div>
 
-        <div class="card-body bg-dark bg-gradient">
-            <form method="POST" action="{{ route('admin.clients.update', [$client->id]) }}" enctype="multipart/form-data">
-                @method('PUT')
-                @csrf
-                <div class="row justify-content-center">
-                    <!--- name -->
-                    <div class="form-group col-4">
-                        <label class="required" for="name">{{ trans('cruds.user.fields.name') }}</label>
-                        <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text"
-                            name="name" id="name" value="{{ old('name', $client->user->name) }}" required>
-                        @if ($errors->has('name'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('name') }}
+            <div class="card-body bg-dark bg-gradient">
+                <form method="POST" action="{{ route('admin.clients.update', [$client->id]) }}" enctype="multipart/form-data">
+                    @method('PUT')
+                    @csrf
+                    <div class="container border border-warning p-5">
+                        <!--- name -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                                for="name">{{ trans('cruds.user.fields.name') }}</label>
+                            <div class="col-6">
+                                <input
+                                    class="form-control bg-dark text-white {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                    type="text" name="name" id="name"
+                                    value="{{ old('name', $client->user->name) }}" required>
+                                @if ($errors->has('name'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('name') }}
+                                    </div>
+                                @endif
+                                <span class="help-block">{{ trans('cruds.user.fields.name_helper') }}</span>
                             </div>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.user.fields.name_helper') }}</span>
-                    </div>
-                    <!--- email -->
-                    <div class="form-group col-4">
-                        <label class="required" for="email">{{ trans('cruds.user.fields.email') }}</label>
-                        <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email"
-                            name="email" id="email" value="{{ old('email', $client->user->email) }}" required
-                            readonly>
-                        @if ($errors->has('email'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('email') }}
-                            </div>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.user.fields.email_helper') }}</span>
-                    </div>
-                    <!--- password -->
-                    <div class="form-group col-4">
-                        <label class="required" for="password">{{ trans('cruds.user.fields.password') }}</label>
-                        <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password"
-                            name="password" id="password" required>
-                        @if ($errors->has('password'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('password') }}
-                            </div>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="form-group col-4">
-                        <label class="required" for="phone_number">{{ trans('cruds.user.fields.phone_number') }}</label>
-                        <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text"
-                            name="phone_number" id="phone_number"
-                            value="{{ old('phone_number', $client->user->phone_number) }}" required>
-                        @if ($errors->has('phone_number'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('phone_number') }}
-                            </div>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.user.fields.phone_number_helper') }}</span>
-                    </div>
-                    <div class="form-group col-4">
-                        <label class="required" for="company_name">{{ trans('cruds.client.fields.company_name') }}</label>
-                        <input class="form-control {{ $errors->has('company_name') ? 'is-invalid' : '' }}" type="text"
-                            name="company_name" id="company_name" value="{{ old('company_name', $client->company_name) }}"
-                            required>
-                        @if ($errors->has('company_name'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('company_name') }}
-                            </div>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.client.fields.company_name_helper') }}</span>
-                    </div>
-                    <div class="form-group col-4">
-                        <label class="required" for="shop_name">{{ trans('cruds.client.fields.shop_name') }}</label>
-                        <input class="form-control {{ $errors->has('shop_name') ? 'is-invalid' : '' }}" type="text"
-                            name="shop_name" id="shop_name" value="{{ old('shop_name', $client->shop_name) }}" required>
-                        @if ($errors->has('shop_name'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('shop_name') }}
-                            </div>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.client.fields.shop_name_helper') }}</span>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="form-group col-6">
-                        <label for="commerical_record">{{ trans('cruds.client.fields.commerical_record') }}</label>
-                        <div class="needsclick dropzone {{ $errors->has('commerical_record') ? 'is-invalid' : '' }}"
-                            id="commerical_record-dropzone">
                         </div>
-                        @if ($errors->has('commerical_record'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('commerical_record') }}
+                        <!-- email -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                                for="email">{{ trans('cruds.user.fields.email') }}</label>
+                            <div class="col-6">
+                                <input
+                                    class="form-control bg-dark text-white {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                                    type="email" name="email" id="email"
+                                    value="{{ old('email', $client->user->email) }}" required>
+                                @if ($errors->has('email'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('email') }}
+                                    </div>
+                                @endif
+                                <span class="help-block">{{ trans('cruds.user.fields.email_helper') }}</span>
                             </div>
-                        @endif
-                        <span class="help-block">{{ trans('cruds.client.fields.commerical_record_helper') }}</span>
-                    </div>
-                </div>
+                        </div>
+                        <!--- password -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                                for="password">{{ trans('cruds.user.fields.password') }}</label>
+                            <div class="col-6">
+                                <input
+                                    class="form-control bg-dark text-white {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                                    type="password" name="password" id="password" required>
+                                @if ($errors->has('password'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('password') }}
+                                    </div>
+                                @endif
+                            </div>
+                            <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
+                        </div>
+                        <!-- phone_number -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                                for="phone_number">{{ trans('cruds.user.fields.phone_number') }}</label>
+                            <div class="col-6">
+                                <input
+                                    class="form-control bg-dark text-white {{ $errors->has('phone_number') ? 'is-invalid' : '' }}"
+                                    type="text" name="phone_number" id="phone_number"
+                                    value="{{ old('phone_number', $client->user->phone_number) }}" required>
+                                @if ($errors->has('phone_number'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('phone_number') }}
+                                    </div>
+                                @endif
+                                <span class="help-block">{{ trans('cruds.user.fields.phone_number_helper') }}</span>
+                            </div>
+                        </div>
+                        <!-- company_name -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                                for="company_name">{{ trans('cruds.client.fields.company_name') }}</label>
+                            <div class="col-6">
+                                <input
+                                    class="form-control bg-dark text-white {{ $errors->has('company_name') ? 'is-invalid' : '' }}"
+                                    type="text" name="company_name" id="company_name"
+                                    value="{{ old('company_name', $client->company_name) }}" required>
+                                @if ($errors->has('company_name'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('company_name') }}
+                                    </div>
+                                @endif
+                                <span class="help-block">{{ trans('cruds.client.fields.company_name_helper') }}</span>
+                            </div>
+                        </div>
 
-                <div class="form-group row justify-content-center">
-                    <button class="btn btn-danger col-4" type="submit">
-                        {{ trans('global.save') }}
-                    </button>
-                </div>
-            </form>
+                        <!-- shop_name -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 col-form-label text-warning text-bold fs-4 required"
+                                for="shop_name">{{ trans('cruds.client.fields.shop_name') }}</label>
+                            <div class="col-6">
+                                <input
+                                    class="form-control bg-dark text-white {{ $errors->has('shop_name') ? 'is-invalid' : '' }}"
+                                    type="text" name="shop_name" id="shop_name"
+                                    value="{{ old('shop_name', $client->shop_name) }}" required>
+                                @if ($errors->has('shop_name'))
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('shop_name') }}
+                                    </div>
+                                @endif
+                                <span class="help-block">{{ trans('cruds.client.fields.shop_name_helper') }}</span>
+                            </div>
+                        </div>
+
+
+                        <!-- commerical_record -->
+                        <div class="form-group row justify-content-center">
+                            <label class="col-3 m-auto col-form-label text-warning text-bold fs-4"
+                                for="commerical_record">{{ trans('cruds.client.fields.commerical_record') }}</label>
+                            <div class="col-6">
+                                <div class="bg-dark col-6 col-md-4 dropzone needsclick {{ $errors->has('commerical_record') ? 'is-invalid' : '' }}"
+                                    id="commerical_record-dropzone">
+                                    <div class="dz-message">
+                                        <i class="fa fa-cloud-upload fa-3x"></i>
+                                        <span class=" text-light"> Select File </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            @if ($errors->has('commerical_record'))
+                                <div class="col-12 invalid-feedback">
+                                    {{ $errors->first('commerical_record') }}
+                                </div>
+                            @endif
+
+                            <small
+                                class="col-12 form-text text-muted">{{ trans('cruds.client.fields.commerical_record_helper') }}</small>
+                        </div>
+
+                        <div class="form-group container text-center mt-3">
+                            <button class="btn btn-warning col-6" type="submit">
+                                {{ trans('global.save') }}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection

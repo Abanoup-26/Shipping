@@ -52,7 +52,7 @@
 
         <div class="row border border-black ">
             <div class="text-center p-2">
-                <div class="fs-4">Trk{{ $order->client->client_number }} </div>
+                <div class="fs-4">Trk {{ $order->order_code }} </div>
                 {!! '<img src="data:image/png;base64,' .
                     DNS1D::getBarcodePNG($order->order_code, config('app.barcode_type'), 3, 70) .
                     '" alt="barcode"   />' !!}
@@ -62,7 +62,7 @@
         <div class="row border border-black ">
 
             <div class="col-6">
-                <p>Ref # f76605bb-8b83-4522-9463-28185ce2b45f</p>
+                <p><strong>REF:</strong> {{ $order->client->client_number }}</p>
                 <p>Weight: {{ $order->weight }} </p>
                 <p>Chargeable: {{ $order->chargeable }}</p>
                 <p>Custom Value: {{ $order->custom_value }}</p>
