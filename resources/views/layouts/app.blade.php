@@ -24,8 +24,9 @@
     @yield('styles')
 </head>
 
-<body class="header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden login-page">
-    <div class="c-app flex-row align-items-center">
+<body class="header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden login-page ">
+    <div class="c-app flex-row align-items-center " style="background-color: #111111
+    ">
         <div class="container">
             @yield('content')
         </div>
